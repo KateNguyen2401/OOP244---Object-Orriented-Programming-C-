@@ -1,0 +1,7 @@
+1. It got the error when i tried to put the templated functions in Data.cpp. If
+I move  all the templated functions to Data.h, it works well.
+2. It works if we define the templates function above the main()
+3. Yes, I can. The advantage of using templates is that we can avoid duplicating
+code and overloading functions.
+4. There is no difference. The use of class and typename (in the context of a 
+template parameter that refers to a type) is interchangeable.

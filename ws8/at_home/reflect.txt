@@ -1,0 +1,15 @@
+1. The main difference between concrete class and abstract class arises  from the level of 
+implementation of their method functionalities. Concrete Classes are regular classes, where 
+all methods are completely implemented. An abstract class is exactly what its name suggests.
+It is where the functions are not defined, they are abstract.
+2. debit() and credit() function
+3. I have learnt the differences between concrete class and abstract class and how the virtual
+functions work and their purposes.
+
+Quiz reflection:
+3b. I didn provide he correct name for shadowing
+void ColourPop::moveTo(int x, int y){
+	if(red != 0 && green != 0 && blue != 0)
+		Point::moveTo(x,y);
+}
+1a. I missed the eplanation for transitive relationship. 

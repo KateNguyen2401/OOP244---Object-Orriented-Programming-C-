@@ -1,0 +1,10 @@
+
+In line number 15 of your output:
+The output should be:
+>2018/10/18
+But your output is: 
+>2018/10/13
+          ^
+----------|
+Professor's character ASCII code: hex(38), dec(56)
+un-matched character ASCII code: hex(33), dec(51)

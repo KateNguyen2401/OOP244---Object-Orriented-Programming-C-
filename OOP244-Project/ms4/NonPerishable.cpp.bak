@@ -1,0 +1,243 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <iomanip>
+#include<iostream>
+#include<fstream>
+#include<string.h>
+#include"NonPerishable.h"
+using namespace std;
+namespace sict {
+	void NonPerishable::name(const char* nm) {
+		delete[] Pname;
+		Pname = nullptr;
+		if (nm != nullptr) {
+			Pname = new char[strlen(nm) + 1];
+			strcpy(Pname, nm);
+		}
+		else {
+			Pname = nullptr;
+		}
+	}
+	const char* NonPerishable::name() const {
+		if (Pname[0] != '\0')
+			return Pname;
+		else
+			return nullptr;
+	}
+	double NonPerishable::cost() const {
+		if (taxable)
+			return price + (price * tax_rate);
+		else
+			return price;
+	}
+	void NonPerishable::message(const char* mess) {
+		this->errorState.message(mess);
+	}
+	bool NonPerishable::isClear() const {
+		if (errorState.ErrorMessage::isClear())
+			return true;
+		else
+			return false;
+	}
+	NonPerishable::NonPerishable() {
+		type = '\0';
+		sku[0] = '\0';
+		Pname = nullptr;
+		unit[0] = '\0';
+		qtyOnHand = 0;
+		Pquantity = 0;
+		price = 0.0;
+	}
+	NonPerishable::NonPerishable(const char* s, const char* n, const char* u, int on , bool tax, double p, int qN) {
+		if (s != '\0' && n != '\0' && u != '\0' && on != 0 && p != 0 && qN != 0) {
+			strcpy(sku, s);
+			name(n);
+			strcpy(unit, u);
+			qtyOnHand = on;
+			taxable = tax;
+			price = p;
+			Pquantity = qN;
+		}
+		else
+			NonPerishable();
+	}
+	NonPerishable::NonPerishable(const NonPerishable& src) {
+		strcpy(sku, src.sku);
+		strcpy(unit, src.unit);
+		qtyOnHand = src.qtyOnHand;
+		taxable = src.taxable;
+		price = src.price;
+		Pquantity = src.Pquantity;
+		this->name(src.Pname);
+		/*if (src.Pname != nullptr) {
+			Pname = new char[strlen(src.Pname) + 1];
+			strcpy(Pname, src.Pname);
+		}
+		else {
+			Pname = nullptr;
+		}*/
+	}
+	NonPerishable& NonPerishable::operator=(const NonPerishable& n) {
+		if (this != &n) {
+			strcpy(sku, n.sku);
+			strcpy(unit, n.unit);
+			qtyOnHand = n.qtyOnHand;
+			taxable = n.taxable;
+			price = n.price;
+			Pquantity = n.Pquantity;
+			delete[] Pname;
+			Pname = nullptr;
+			if (n.Pname != nullptr) {
+				Pname = new char[strlen(n.Pname) + 1];
+				strcpy(Pname, n.Pname);
+			}
+			else {
+				Pname = nullptr;
+			}
+		}
+		return *this;
+	}
+	NonPerishable::~NonPerishable() {
+		delete[] Pname;
+	}
+	std::fstream& NonPerishable::store(std::fstream& file, bool newLine) const {
+		file << type << "," << sku << "," << Pname
+			<< "," << unit << "," << qtyOnHand << ","
+			<< Pquantity << "," << price << "," << taxable;
+		if (newLine)
+			file << endl;
+		return file;
+	}
+	std::fstream& NonPerishable::load(std::fstream& file) {
+		file >> sku;
+		file >> Pname;
+		file >> qtyOnHand;
+		file >> Pquantity;
+		file >> taxable;
+		file >> price;
+		(NonPerishable&)*this = NonPerishable(sku, Pname, "", qtyOnHand, taxable != 0, price, Pquantity);
+		return file;
+	}
+	std::ostream& NonPerishable::write(std::ostream& os, bool linear) const {
+		if (linear) {
+			os << setw(max_sku_length) << left << sku <<
+				setw(20) << left << name() << "|" <<
+				setw(7) << right << fixed << setprecision(2) << cost() << "|" <<
+				setw(4) << right << quantity() << "|" <<
+				setw(10) << left << unit << "|" <<
+				setw(4) << right << qtyNeeded() << endl;
+			/*os << sku << ": " << name() << ", quantity: "
+				<< quantity() << ", quantity needed:" << qtyNeeded()
+				<< ", Cost: " << fixed << setprecision(2) << cost());*/
+		}
+		else {
+			os <<"Sku: " << sku << endl <<
+				"Name:" << name() << endl <<
+				"Price: " << fixed << setprecision(2) << price << endl;
+			if (taxable)
+				os << "Price after tax: " << fixed << setprecision(2) << cost() << endl;
+			else
+				os << "Price after tax: N/A" << endl;
+			os << "Quantity On Hand: " << qtyOnHand << endl
+				<< "Quantity Needed: " << qtyNeeded() << endl;
+		}
+		return os;
+	}
+	std::istream& NonPerishable::read(std::istream& is) {
+		cout << "Sku: ";
+		is >> sku;
+		//is.ignore();
+		cout << "Name: ";
+		is >> Pname;
+		//is.ignore();
+		cout << "Unit: ";
+		is >> unit;
+		//is.ignore();
+		cout << "Taxed? (y/n): ";
+		char tax = '\0';
+		is >> tax;
+		//is.ignore();
+		if (tax != 'y' && tax != 'n' && tax != 'Y' && tax != 'N') {
+			is.istream::setstate(std::ios::failbit);
+			message("Only (Y)es or (N)o are acceptable");
+		}
+		else {
+			if (tax == 'y' || tax == 'Y')
+				taxable = true;
+			else
+				taxable = false;
+		}
+		cout << "Price: ";
+		is >> price;
+		//is.ignore;
+		if (is.fail())
+			message("Invalid Price Entry");
+		cout << "Quantity on hand: ";
+		is >> qtyOnHand;
+		if (is.fail())
+			message("Invalid Quantity Entry");
+		cout << "Quantity Needed: ";
+		is >> Pquantity;
+		if (is.fail())
+			message("Invalid Quantity Needed Entry");
+		return is;
+	}
+	bool NonPerishable::operator==(const char* s) const {
+		if (strcmp(sku, s) == 0)
+			return true;
+		else
+			return false;
+	}
+	double NonPerishable::total_cost() const {
+		return this->cost() * qtyOnHand;
+	}
+	void NonPerishable::quantity(int q) {
+		qtyOnHand = q;
+	}
+	bool NonPerishable::isEmpty() const {
+		if (errorState.ErrorMessage::isClear())
+			return true;
+		else
+			return false;
+	}
+	int NonPerishable::qtyNeeded() const {
+		return Pquantity;
+	}
+	int NonPerishable::quantity() const {
+		return qtyOnHand;
+	}
+	bool NonPerishable::operator>(const char* s) const {
+		if (strcmp(sku, s) > 0)
+			return false;
+		else
+			return true;
+	}
+	int NonPerishable::operator+=(int n) {
+		if (n > 0) {
+			qtyOnHand += n;
+		}
+		return qtyOnHand;
+	}
+	bool NonPerishable::operator>(const Product& nm) const {
+		if (strcmp(nm.name(), Pname) > 0)
+			return true;
+		else
+			return false;
+	}
+	std::ostream& operator<<(std::ostream& os, const Product& p) {
+		p.write(os, true);
+		return os;
+	}
+	std::istream& operator>>(std::istream& is, Product& p) {
+		p.read(is);
+		return is;
+	}
+	double operator+=(double& m, const Product& p) {
+		m += p.total_cost();
+		return m;
+	}
+	Product* CreateProduct() {
+		Product* p = nullptr;
+		p = new NonPerishable();
+		return p;
+	}
+}
