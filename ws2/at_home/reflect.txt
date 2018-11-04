@@ -1,0 +1,15 @@
+1.
+ Because the arrays are stored in consecutive memory and we cannot
+know whether or not the memory immediately after the array is already
+allocated for something else
+2. I think we dont have a memory leak. Because when we deallocate 
+the array, we already erased all the information in that array 
+including the name. 
+3. Each display() function has different numbers of parameters. In
+addition, the first display() function we just pass one value of 
+pKingdom and the second one we pass the whole array and one value.
+4. I have learned how to resize an array dynamically and understand 
+why we have to do that.  
+
+Quiz 2 reflection:
+Question1b: my answer is delete student[]. Correct: delete [] student

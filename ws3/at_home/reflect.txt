@@ -1,0 +1,10 @@
+1. The maximum size is 41 including the maximum name and null 
+character
+2. In C++, this situation is called function overloading. It means
+that c++ allows to have multiple fuctions with the same name but 
+different set of parameters.
+3. In this workshop, i learned how to display 2 digits after decimal
+point and how to use the class with private members
+
+Quiz 3 reflection:
+My mistake is that Box.cpp cant be included in the main function.

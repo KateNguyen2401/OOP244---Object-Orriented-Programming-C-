@@ -1,0 +1,32 @@
+#include <iostream>
+#include "CRA_Account.h"
+using namespace std;
+using namespace sict;
+void CRA_Account::set(const char* familyName, const char* givenName, int sin) {
+	if (min_sin <= sin && sin <= max_sin) {
+		for (int i = 0; i< max_name_length; i++) {
+			fName[i] = familyName[i];
+			gName[i] = givenName[i];
+		}
+		SIN = sin;
+	}
+	else {
+		SIN = 0;
+	}
+}
+bool CRA_Account::isEmpty() const {
+	if (SIN == 0)
+		return true;
+	else
+		return false;
+}
+void CRA_Account::display() const {
+	if (SIN != 0) {
+		cout << "Family Name: " << fName << endl;
+		cout << "Given Name : " << gName << endl;
+		cout << "CRA Account: " << SIN << endl;
+	}
+	else {
+		cout << "Account object is empty!" << endl;
+	}
+}

@@ -1,0 +1,19 @@
+1. A namespace is a scope that contains a set of related objects. The purpose of namespace is to
+avoid the naming conflicts of diffirent variables.
+2. A header file is preprocessor directive. It helps the compiler aware of what functions we need 
+to use.
+3. Because the header files just contains the declaration of functions so it may send error 
+messages.
+4. Because what #include does is to tell the preprocessor to take the entire file that have been 
+specified and copy it into active file before compiling. As a result, it will make a huge source
+file without separation.
+5. I have learned the purpose of header file and source file. I also know what i should and
+shouldn't do with these files.
+
+Quiz 1 reflection:
+1. Does the provided code run? The correct answer is No but my answer is Yes because
+I forgot about the type safety.
+2. 3 stage of compilation is: Preprocessor, compiler and linker.
+3. Static memory is that the operating system allocates for application at load time.
+Dynamic memory is at run-time.
+

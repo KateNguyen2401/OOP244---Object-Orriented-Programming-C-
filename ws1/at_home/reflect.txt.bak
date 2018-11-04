@@ -1,0 +1,5 @@
+1. A namespace is a scope that contains a set of related objects. The purpose of namespace is to
+avoid the naming conflicts of diffirent variables.
+2. A header file is preprocessor directive. It helps the compiler aware of what functions we need 
+to use.
+

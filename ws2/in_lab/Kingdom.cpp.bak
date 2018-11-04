@@ -1,0 +1,7 @@
+#include <iostream>
+#include "Kingdom.h"
+using namespace std;
+
+void sict::display(struct Kingdom k) {
+	cout << k.m_name << ", population " << k.m_population << endl;
+}
