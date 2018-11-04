@@ -1,0 +1,29 @@
+1. No, Hero class doesnt need to know the existence of the SuperHero cla
+2. Yes, since the SuperHero class is the derived class of the Hero class, the 
+SuperHero class is the derived class of Hero class when we declare the SuperHero
+class (class SuperHero : public Hero{};) and when we include the Hero.h into
+SuperHero.h. We also have to use the Hero function to access the private data.
+3. It prints out "Accient Battle!".
+4. Yes, both of programs are valid in main.
+
+Quiz reflection(mid-term):
+Question 1:
+b. #define ADD_RATE 2
+It replaces ADD_RATE with 2 everywhere in the program
+c. using namespace std;
+It allows us to use the namespace std which is the C++ standard library
+Question 4:
+h.
+#include <iostream>
+#include "CashRegistor.h"
+int main(){
+	CashRegistor staticReg(1,1,1,1);
+	CashRegistor* dynamicReg = nullptr;
+	dynamicReg = new CashRegistor[2];
+	dynamicReg->dispense(3,true);
+	staticReg.dispense(4,false);
+	staticReg += dynamicReg;
+	std::cout << (staticReg == dynamicReg) ? "true" : "false";
+	delete[] dynamicReg;
+	return 0;
+}

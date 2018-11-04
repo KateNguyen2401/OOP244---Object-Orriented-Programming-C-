@@ -1,0 +1,14 @@
+1. Because the operator+ just return the result but not change the original one so we just need a
+copy of the value not the address of the variable.
+2. The temporary objects were using when I used pass-by-reference paramater in overloading 
+operartors
+3. I wrapped the class in #ifndef and #endif statement. I use the public for all the function that I 
+used in the main function and private for functions that i used in other function. Because the class 
+author must use the public interface to expose the object's functionality to the client.
+4. I learnt how to overload operator and what is its purpose
+
+Quiz 4 reflection:
+Question1: I cannot answer the question correctly. My correction:
+a. Member operators are parts of class definition while helper operators are supporting but 
+outside the class definition.
+

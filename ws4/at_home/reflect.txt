@@ -1,0 +1,14 @@
+1. A safe empty state is that we initializing a variable in a constructionto 
+avoid unwanted random value when creating that variable
+Yes, we could 
+2. I'm using the isEmpty() function to check if the variable is valid or not 
+multiple times. 
+3. The cantravelwith() function is called friend function. And we used passed-by
+-references parameter it does not copy the arguments. The & identifies the parameter
+as an alias for the corespond argument so we can change the value of the argument 
+when the function is called 
+4. In strncpy funtion, we need 3 arguments including destination, sourceand the 
+size of the destination. We also have to put a null terminator on unless you are
+ sure that the length of the source is less than the destination
+5. I have learned to use constructor how to access the private data using passing
+-by-reference parameters. 

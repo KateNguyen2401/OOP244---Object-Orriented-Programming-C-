@@ -1,0 +1,8 @@
+1. The copy assignment checks self-assignment first because if the object is assigned to itself, the 
+program results in unpredictable behavior. Since more than one pointer or reference can point to the
+same object.
+2. In copy constructor and copy assignment, to avoid duplication, I use the code *this = source;in
+the copy constructor since both have the same codes
+3. I have learned to use resourse instance pointer and it afects to the dynamic memory, I also learnt
+the meaning and purpose of copy constructor and copy assignment and the differences between shallow 
+and deep copy.  
